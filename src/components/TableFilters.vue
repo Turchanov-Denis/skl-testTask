@@ -4,9 +4,11 @@ import SelectComponent from "@/components/SelectComponent.vue";
 </script>
 
 <template>
-  <SelectComponent/>
-  <SelectComponent/>
-  <SelectComponent/>
+  <div class="container container__center">
+    <SelectComponent/>
+    <SelectComponent/>
+    <SelectComponent/>
+  </div>
 </template>
 
 <style scoped>

@@ -1,0 +1,33 @@
+.header {
+  width: 100%;
+  height: 372px;
+  background-color: #0E0E10;
+  padding: 48px;
+  &__title {
+    font-family: Gotham Pro;
+    font-weight: 700;
+    font-size: 60px;
+    color: #F1F4FD;
+    padding: 48px 0 0 0;
+  }
+  &__image {
+  }
+}
+
+.contact {
+  width: 124px;
+  height: 98px;
+  &__text {
+    font-family: Gotham Pro;
+    font-weight: 700;
+    font-size: 14px;
+    color: #55555C;
+    padding: 5px 0;
+    text-align: right;
+  }
+  &__image{
+    width: 120px;
+    height: 35px;
+    padding: 5px 0;
+  }
+}

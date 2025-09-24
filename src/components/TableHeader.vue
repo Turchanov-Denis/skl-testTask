@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div>Таблица учреждений</div>
     <input type="text" v-model="searchQuery" placeholder="Поиск"/>
     <DownloadButton/>
