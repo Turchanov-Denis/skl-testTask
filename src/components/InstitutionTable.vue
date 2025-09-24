@@ -1,19 +1,21 @@
 <template>
   <div>
-    <TableHeader ref="header" />
-    <TableFilters />
-    <TableBody :data="tableData" />
+    <TableHeader ref="header"/>
+    <TableFilters/>
+    <TableBody :data="tableData"/>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import TableHeader from './TableHeader.vue';
 import TableFilters from './TableFilters.vue';
 import TableBody from './TableBody.vue';
-import DownloadButton from './DownloadButton.vue';
 
-const tableData = ref([]);
-
-const header = ref(null);
+const tableData = ref([{
+  id: 1,
+  name: 'МБОУ Средняя общеобразовательная школа №2',
+  address: 'ул. Новая, д. 13',
+  educationLevel: 'Среднее'
+},]);
 </script>
