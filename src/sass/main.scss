@@ -1,6 +1,6 @@
-@use  "reset";
-@use  "header";
-
+@use "reset";
+@use "header";
+@use "table";
 
 @font-face {
   font-family: 'Gotham Pro';
@@ -10,15 +10,26 @@
 
 // move to other file container.scss
 .container {
-  width: 100%;
+  max-width: 1635px;
+  margin: 0 auto;
+  padding: 0 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  &__vertical {
-    flex-direction: column;
-  }
-  &__center {
-    justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 992px) {
+  .container {
+    max-width: 768px;
   }
 }
+
+@media (max-width: 768px) {
+  .container {
+    max-width: none;
+  }
+}
+
+

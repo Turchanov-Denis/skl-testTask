@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <TableHeader ref="header"/>
     <TableFilters/>
     <TableBody :data="tableData"/>

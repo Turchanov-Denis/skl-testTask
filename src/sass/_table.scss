@@ -1,0 +1,19 @@
+.table-search {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 85px;
+  width: 100%;
+
+  &__title {
+    font-family: Gotham Pro, serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: #111827;
+  }
+  &__container{
+    width: 470px;
+    display: flex;
+    justify-content: space-between;
+  }
+}

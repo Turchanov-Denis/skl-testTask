@@ -3,12 +3,13 @@
 </script>
 
 <template>
-  <select>
-    <option> qqqq</option>
-    <option> qqqq</option>
-  </select>
+<!--  <select>-->
+<!--    <option> qqqq</option>-->
+<!--    <option> qqqq</option>-->
+<!--  </select>-->
+
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>

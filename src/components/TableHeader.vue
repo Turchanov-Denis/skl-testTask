@@ -1,15 +1,15 @@
 <template>
-  <div class="container">
-    <div>Таблица учреждений</div>
-    <input type="text" v-model="searchQuery" placeholder="Поиск"/>
-    <DownloadButton/>
+  <div class="table-search">
+    <div class="table-search__title">Таблица учреждений</div>
+    <div class="table-search__container">
+      <Input :image-path="'public/inputIcon.png'"/>
+      <DownloadButton :image-path="'public/buttonIcon.png'"/>
+    </div>
   </div>
 
 </template>
 
 <script setup>
-import {ref} from 'vue';
 import DownloadButton from "@/components/DownloadButton.vue";
-
-const searchQuery = ref('');
+import Input from "@/components/Input.vue";
 </script>
