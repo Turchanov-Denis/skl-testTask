@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <TableHeader ref="header"/>
-    <TableFilters/>
-    <TableBody :data="tableData"/>
+    <div class="table">
+      <TableHeader ref="header"/>
+      <TableFilters/>
+      <TableBody :data="tableData"/>
+    </div>
   </div>
 </template>
 

@@ -4,8 +4,10 @@ import InstitutionTable from "@/components/InstitutionTable.vue";
 </script>
 
 <template>
-  <Header/>
-  <InstitutionTable/>
+  <div class="wrapper">
+    <Header/>
+    <InstitutionTable/>
+  </div>
 </template>
 
 <style scoped>

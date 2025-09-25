@@ -1,4 +1,15 @@
+// TODO: make adaptive
+
 .table {
+  margin-top: 80px;
+  border-radius: 16px;
+  padding: 30px;
+  width: 1632px;
+  height: 836px;
+  background: #fff;
+}
+
+.table-body {
   width: 100%;
   border-collapse: collapse;
   color: #333;
@@ -31,7 +42,6 @@
 }
 
 .table-search {
-  padding: 15px;
   display: flex;
   justify-content: space-between;
   min-height: 85px;
@@ -42,15 +52,16 @@
     font-weight: 700;
     font-size: 32px;
     color: #111827;
+    margin-top: 10px;
   }
   &__container{
     width: 470px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 }
 .table-filter {
-  padding: 15px;
   display: flex;
   justify-content: space-between;
   min-height: 85px;
