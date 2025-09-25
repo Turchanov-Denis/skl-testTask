@@ -1,5 +1,5 @@
 <template>
-  <select :value="selected" @change="e => onSelectChange(e.target.value)">
+  <select class="select-component" :value="selected" @change="e => onSelectChange(e.target.value)">
     <option value="">{{ placeholder }}</option>
     <option v-for="option in options" :key="option" :value="option">{{ option }}</option>
   </select>

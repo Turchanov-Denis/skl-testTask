@@ -15,6 +15,32 @@ const typeOptions = computed(() => {
   const types = tableData.value.map(el => el.type?.name).filter(Boolean);
   return [...new Set(types)];
 });
+const downloadId = ref(new Map());
+const addDownloadId = (event) => {
+  const id = event.target.id;
+  if (event.target.checked) {
+    if (!downloadId.value.has(id)) {
+      downloadId.value.set(id, true);
+    }
+  } else {
+    downloadId.value.delete(id);
+  }
+  console.log('Текущий Map:', Array.from(downloadId.value.entries()));
+};
+
+const addAllDownloadId = () => {
+  const allSelected = tableData.value.every(el => downloadId.value.get(el.edu_org.uuid) === true);
+  if (!allSelected) {
+    tableData.value.forEach(el => {
+      downloadId.value.set(el.edu_org.uuid, true);
+    });
+  } else {
+    tableData.value.forEach(el => {
+      downloadId.value.set(el.edu_org.uuid, false);
+    });
+  }
+  console.log('Текущий Map:', Array.from(downloadId.value.entries()));
+};
 
 const statusOptions = computed(() => {
   const statuses = tableData.value.map(el => el.status?.name).filter(Boolean);
@@ -57,7 +83,9 @@ async function getData() {
   try {
     const response = await axios.get("https://schooldb.skillline.ru/api/schools");
     tableData.value = response.data.data.list;
-    console.log(tableData.value);
+    for (const item of tableData.value) {
+      downloadId.value.set(item.edu_org.el.uuid, false)
+    }
   } catch (e) {
     console.log(e);
   }
@@ -67,31 +95,33 @@ getData();
 </script>
 
 <template>
-  <div class="table">
-    <TableHeader :onSearchChange="(val) => searchData = val"/>
+  <div class="container">
+    <div class="table">
+      <TableHeader :onSearchChange="(val) => searchData = val"/>
 
-    <div class="table-filter">
-      <div class="table-filter__item">
-        <DateRangeInput :onSetDates="(val)=> selectedDate=val"/>
+      <div class="table-filter">
+        <div class="table-filter__item">
+          <DateRangeInput :onSetDates="(val)=> selectedDate=val"/>
+        </div>
+        <div class="table-filter__item">
+          <SelectComponent
+              :options="typeOptions"
+              :selected="selectedType"
+              :onSelectChange="(val) => selectedType = val"
+              placeholder="Выберите тип"
+          />
+        </div>
+        <div class="table-filter__item">
+          <SelectComponent
+              :options="statusOptions"
+              :selected="selectedStatus"
+              :onSelectChange="(val) => selectedStatus = val"
+              placeholder="Выберите статус"
+          />
+        </div>
       </div>
-      <div class="table-filter__item">
-        <SelectComponent
-            :options="typeOptions"
-            :selected="selectedType"
-            :onSelectChange="(val) => selectedType = val"
-            placeholder="Выберите тип"
-        />
-      </div>
-      <div class="table-filter__item">
-        <SelectComponent
-            :options="statusOptions"
-            :selected="selectedStatus"
-            :onSelectChange="(val) => selectedStatus = val"
-            placeholder="Выберите статус"
-        />
-      </div>
+
+      <TableBody :addAllDownloadId="addAllDownloadId" :addDownloadId="addDownloadId" :tableData="filteredData" :downloadId="downloadId"/>
     </div>
-
-    <TableBody  :tableData="filteredData"/>
   </div>
 </template>
