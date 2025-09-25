@@ -11,9 +11,8 @@
 
 .table-body {
   width: 100%;
-  border-collapse: collapse;
-  color: #333;
   th {
+    height: 56px;
     padding: 10px;
     text-align: left;
     vertical-align: middle;
@@ -67,4 +66,8 @@
   min-height: 85px;
   width: 100%;
   gap: 20px;
+}
+
+.table-body-wrapper {
+  height: 550px;
 }
