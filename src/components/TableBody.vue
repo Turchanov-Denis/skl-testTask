@@ -1,28 +1,32 @@
 <script setup>
 import { ref, computed } from "vue";
+// TODO: filter logic
 // TODO: ADD SORTING
 const props = defineProps({
-  data: {
+  tableData: {
     type: Array,
     required: true
+  },
+  searchData: {
+    type: String,
   }
 });
 
 // выбранная страница
 const currentPage = ref(1);
 // сколько элементов показывать
-const perPage = ref(10);
+const perPage = ref(8);
 
 // общее количество страниц
 const totalPages = computed(() =>
-    Math.ceil(props.data.length / perPage.value)
+    Math.ceil(props.tableData.length / perPage.value)
 );
 
 // вычисляем какие данные показывать
 const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * perPage.value;
   const end = start + perPage.value;
-  return props.data.slice(start, end);
+  return props.tableData.slice(start, end);
 });
 
 // переключение страницы
@@ -50,10 +54,10 @@ const goToPage = (page) => {
             :key="item.id"
             class="table-body__row"
         >
-          <td class="table-body__cell">{{ item.name }}</td>
-          <td class="table-body__cell">{{ item.name }}</td>
-          <td class="table-body__cell">{{ item.address }}</td>
-          <td class="table-body__cell">{{ item.educationLevel }}</td>
+          <td class="table-body__cell">{{ item.edu_org.region.name }}</td>
+          <td class="table-body__cell">{{ (item.edu_org.short_name)?item.edu_org.short_name:"None" }}</td>
+          <td class="table-body__cell">{{ item.edu_org.contact_info.post_address }}</td>
+          <td class="table-body__cell">{{ "Среднее Высшее Специальное Проф Бакалавр" }}</td>
         </tr>
         </tbody>
       </table>
@@ -94,8 +98,8 @@ const goToPage = (page) => {
 
         <span>
         {{ (currentPage - 1) * perPage + 1 }} -
-        {{ Math.min(currentPage * perPage, props.data.length) }}
-        из {{ props.data.length }}
+        {{ Math.min(currentPage * perPage, props.tableData.length) }}
+        из {{ props.tableData.length }}
       </span>
       </div>
     </div>
@@ -111,6 +115,9 @@ const goToPage = (page) => {
   align-items: center;
   gap: 8px;
   margin-top: 12px;
+  button {
+    padding: 5px;
+  }
 }
 button.active {
   font-weight: bold;

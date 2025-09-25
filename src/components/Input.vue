@@ -1,23 +1,25 @@
-<script setup >
-import {ref} from 'vue';
-const searchQuery = ref('');
+<script setup>
+import {ref, watch, defineProps, defineEmits} from 'vue';
+
 const props = defineProps({
-  imagePath: {
-    type: String,
-    required: true
-  }
-})
+  imagePath: {type: String, required: true},
+  onChange: { type: Function, required: true }
+});
 </script>
 
 <template>
   <div class="input-container">
-    <input class="input-container__input" type="text" v-model="searchQuery" placeholder="Поиск"/>
+    <input
+        class="input-container__input"
+        @input="(event )=>{props.onChange(event.target.value)}"
+        type="text"
+        placeholder="Поиск"
+    />
     <img class="input-container__image" :src="imagePath" alt="">
   </div>
 </template>
 
-<style lang="scss" scoped>
-
+<style scoped lang="scss">
 .input-container {
   width: 300px;
   height: 56px;
@@ -30,10 +32,7 @@ const props = defineProps({
     height: 100%;
     border: 1px solid #d3d3de;
     border-radius: 10px;
-
-    &::placeholder {
-      padding-left: 15px;
-    }
+    padding-left: 15px; // Перенесено из ::placeholder
   }
 
   &__image {
@@ -41,7 +40,6 @@ const props = defineProps({
     height: 23px;
     position: absolute;
     right: 10px;
-
   }
 }
 </style>

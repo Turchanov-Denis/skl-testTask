@@ -1,16 +1,21 @@
-<script setup>
-
-</script>
-
 <template>
-<!--  <select>-->
-<!--    <option> qqqq</option>-->
-<!--    <option> qqqq</option>-->
-<!--  </select>-->
-  <select type="" name="" id="" class="select-component">
-    <option value="" class="select-component__item">Все виды</option>
+  <select :value="selected" @change="e => onSelectChange(e.target.value)">
+    <option value="">{{ placeholder }}</option>
+    <option v-for="option in options" :key="option" :value="option">{{ option }}</option>
   </select>
 </template>
+
+<script setup>
+const props = defineProps({
+  options: Array,
+  selected: String,
+  onSelectChange: Function,
+  placeholder: {
+    type: String,
+    default: "Выберите"
+  }
+});
+</script>
 
 <style lang="scss" scoped>
 .select-component {
@@ -19,8 +24,5 @@
   border-radius: 10px;
   height: 56px;
   padding-left: 15px;
-  &__item {
-
-  }
 }
 </style>
