@@ -4,7 +4,7 @@ import SelectComponent from "@/components/SelectComponent.vue";
 </script>
 
 <template>
-  <div class="container container__center">
+  <div class="table-filter">
     <SelectComponent/>
     <SelectComponent/>
     <SelectComponent/>

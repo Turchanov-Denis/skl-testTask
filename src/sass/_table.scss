@@ -1,5 +1,37 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #333;
+  th {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  &__head {
+    background: #dbdbea;
+  }
+
+  &__row {
+    border-bottom: 1px solid #ddd;
+    height: 63px;
+  }
+
+  &__cell {
+    padding: 10px;
+    text-align: left;
+    vertical-align: middle;
+    &--header {
+      font-weight: bold;
+    }
+  }
+
+  &__row:hover {
+    background-color: #f9f9f9;
+  }
+}
+
 .table-search {
-  padding: 30px;
+  padding: 15px;
   display: flex;
   justify-content: space-between;
   min-height: 85px;
@@ -16,4 +48,12 @@
     display: flex;
     justify-content: space-between;
   }
+}
+.table-filter {
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  min-height: 85px;
+  width: 100%;
+  gap: 20px;
 }

@@ -6,24 +6,26 @@ const props = defineProps({
 </script>
 
 <template>
-  <table>
-    <thead>
+  <table class="table">
+    <thead class="table__head">
     <tr>
-      <th>Название</th>
-      <th>Адрес</th>
-      <th>Уровень образования</th>
+      <th class="table__cell table__cell--header">Регионы</th>
+      <th class="table__cell table__cell--header">Название</th>
+      <th class="table__cell table__cell--header">Адрес</th>
+      <th class="table__cell table__cell--header">Уровень образования</th>
     </tr>
     </thead>
-    <tbody>
-    <tr v-for="item in data" :key="item.id">
-      <td>{{ item.name }}</td>
-      <td>{{ item.address }}</td>
-      <td>{{ item.educationLevel }}</td>
+    <tbody class="table__body">
+    <tr v-for="item in data" :key="item.id" class="table__row">
+      <td class="table__cell">{{ item.name }}</td>
+      <td class="table__cell">{{ item.name }}</td>
+      <td class="table__cell">{{ item.address }}</td>
+      <td class="table__cell">{{ item.educationLevel }}</td>
     </tr>
     </tbody>
   </table>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
