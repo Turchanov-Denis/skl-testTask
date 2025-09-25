@@ -18,9 +18,12 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
+import {ref, computed} from "vue"
 import CalendarPicker from "./CalendarPicker.vue"
 
+const props = defineProps({
+  onSetDates: Function,
+})
 const isOpen = ref(false)
 const startDate = ref(null)
 const endDate = ref(null)
@@ -46,9 +49,10 @@ function closeCalendar() {
   isOpen.value = false
 }
 
-function setDates({ start, end }) {
+function setDates({start, end}) {
   startDate.value = start
   endDate.value = end
+  props.onSetDates({start, end})
   closeCalendar()
 }
 </script>

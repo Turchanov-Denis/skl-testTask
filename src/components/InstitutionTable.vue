@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import {ref, computed} from 'vue';
 import TableHeader from './TableHeader.vue';
 import TableBody from './TableBody.vue';
 import SelectComponent from '@/components/SelectComponent.vue';
@@ -10,7 +10,7 @@ const tableData = ref([]);
 const searchData = ref("");
 const selectedType = ref("");
 const selectedStatus = ref("");
-
+const selectedDate = ref({});
 const typeOptions = computed(() => {
   const types = tableData.value.map(el => el.type?.name).filter(Boolean);
   return [...new Set(types)];
@@ -37,15 +37,27 @@ const filteredData = computed(() => {
     // Фильтр по status
     const matchesStatus = !selectedStatus.value || el.status?.name === selectedStatus.value;
 
-    return matchesSearch && matchesType && matchesStatus;
+    // Фильтр по дате
+    const matchesDate = !selectedDate.value?.start || !selectedDate.value?.end
+        ? true
+        : (() => {
+          const issueDate = new Date(el.issue_date);
+          const start = new Date(selectedDate.value.start);
+          const end = new Date(selectedDate.value.end);
+          return issueDate >= start && issueDate <= end;
+        })();
+
+    return matchesSearch && matchesType && matchesStatus && matchesDate;
   });
 });
+
 
 // Получаем данные с API
 async function getData() {
   try {
     const response = await axios.get("https://schooldb.skillline.ru/api/schools");
     tableData.value = response.data.data.list;
+    console.log(tableData.value);
   } catch (e) {
     console.log(e);
   }
@@ -60,7 +72,7 @@ getData();
 
     <div class="table-filter">
       <div class="table-filter__item">
-        <DateRangeInput/>
+        <DateRangeInput :onSetDates="(val)=> selectedDate=val"/>
       </div>
       <div class="table-filter__item">
         <SelectComponent
@@ -80,6 +92,6 @@ getData();
       </div>
     </div>
 
-    <TableBody :tableData="filteredData"/>
+    <TableBody  :tableData="filteredData"/>
   </div>
 </template>
