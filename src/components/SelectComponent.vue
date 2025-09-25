@@ -7,18 +7,20 @@
 <!--    <option> qqqq</option>-->
 <!--    <option> qqqq</option>-->
 <!--  </select>-->
-  <select name="" id="" class="select-component">
-    <option value="" class="select-component__item">Select your option</option>
+  <select type="" name="" id="" class="select-component">
+    <option value="" class="select-component__item">Все виды</option>
   </select>
 </template>
 
 <style lang="scss" scoped>
 .select-component {
+  width: 100%;
   border: 1px solid #d3d3de;
   border-radius: 10px;
-  flex: 1;
   height: 56px;
+  padding-left: 15px;
   &__item {
+
   }
 }
 </style>
