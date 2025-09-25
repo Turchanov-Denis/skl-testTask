@@ -25,18 +25,63 @@ const props = defineProps({
 
 const currentPage = ref(1);
 const perPage = ref(8);
+const sortKey = ref(''); // Track the column to sort by
+const sortOrder = ref(1); // 1 for ascending (arrowUp), -1 for descending (arrowDown)
 
-const totalPages = computed(() => Math.ceil(props.tableData.length / perPage.value));
+// Computed property to sort tableData
+const sortedTableData = computed(() => {
+  if (!sortKey.value) return props.tableData; // No sorting if no key is selected
 
+  return [...props.tableData].sort((a, b) => {
+    let aValue, bValue;
+
+    if (sortKey.value === 'region') {
+      aValue = a.edu_org.region?.name || '';
+      bValue = b.edu_org.region?.name || '';
+    } else if (sortKey.value === 'short_name') {
+      aValue = a.edu_org.short_name || '';
+      bValue = b.edu_org.short_name || '';
+    } else if (sortKey.value === 'post_address') {
+      aValue = a.edu_org.contact_info?.post_address || '';
+      bValue = b.edu_org.contact_info?.post_address || '';
+    } else {
+      return 0;
+    }
+
+    return aValue.localeCompare(bValue) * sortOrder.value;
+  });
+});
+
+// Compute total pages based on sorted data
+const totalPages = computed(() => Math.ceil(sortedTableData.value.length / perPage.value));
+
+// Compute paginated data from sorted data
 const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * perPage.value;
   const end = start + perPage.value;
-  return props.tableData.slice(start, end);
+  return sortedTableData.value.slice(start, end);
 });
 
 const goToPage = (page) => {
   if (page < 1 || page > totalPages.value) return;
   currentPage.value = page;
+};
+
+// Toggle sorting when clicking a column header
+const toggleSort = (key) => {
+  if (sortKey.value === key) {
+    sortOrder.value *= -1; // Toggle between ascending and descending
+  } else {
+    sortKey.value = key;
+    sortOrder.value = 1; // Default to ascending (arrowUp)
+  }
+  currentPage.value = 1; // Reset to first page on sort
+};
+
+// Get the sort icon based on sortKey and sortOrder
+const getSortIcon = (key) => {
+  if (sortKey.value !== key) return '/arrowDown.png'; // Default icon
+  return sortOrder.value === 1 ? '/arrowUp.png' : '/arrowDown.png';
 };
 </script>
 
@@ -47,11 +92,23 @@ const goToPage = (page) => {
         <thead class="table-body__head">
         <tr>
           <th class="table-body__cell table__cell--header">
-            <input @change="addAllDownloadId" type="checkbox"> Регионы
+            <input @change="addAllDownloadId" type="checkbox">
+            <span @click="toggleSort('region')" style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                Регионы
+                <img :src="getSortIcon('region')" alt="Sort" style="width: 16px; height: 16px;" />
+              </span>
           </th>
-          <th class="table-body__cell table__cell--header">Название</th>
-          <th class="table-body__cell table__cell--header">Адрес</th>
-          <th class="table-body__cell table__cell--header">Уровень образования</th>
+          <th class="table-body__cell table__cell--header" @click="toggleSort('short_name')" style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            Название
+            <img :src="getSortIcon('short_name')" alt="Sort" style="width: 16px; height: 16px;" />
+          </th>
+          <th class="table-body__cell table__cell--header" @click="toggleSort('post_address')" style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            Адрес
+            <img :src="getSortIcon('post_address')" alt="Sort" style="width: 16px; height: 16px;" />
+          </th>
+          <th class="table-body__cell table__cell--header">
+            Уровень образования
+          </th>
         </tr>
         </thead>
         <tbody class="table-body__body">
@@ -108,8 +165,8 @@ const goToPage = (page) => {
         </select>
         <span>
           {{ (currentPage - 1) * perPage + 1 }} -
-          {{ Math.min(currentPage * perPage, props.tableData.length) }}
-          из {{ props.tableData.length }}
+          {{ Math.min(currentPage * perPage, sortedTableData.length) }}
+          из {{ sortedTableData.length }}
         </span>
       </div>
     </div>
@@ -133,5 +190,10 @@ const goToPage = (page) => {
 
 button.active {
   font-weight: bold;
+}
+
+.table-body__cell span {
+  display: inline-flex;
+  align-items: center;
 }
 </style>
