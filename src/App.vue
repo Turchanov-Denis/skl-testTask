@@ -7,7 +7,7 @@ import InstitutionTable from "@/components/InstitutionTable.vue";
 <template>
   <div class="wrapper">
     <Header/>
-    <InstitutionTable/>
+    <InstitutionTable />
   </div>
 </template>
 

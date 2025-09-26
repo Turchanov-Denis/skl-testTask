@@ -33,6 +33,9 @@ const props = defineProps({
     line-height: 130%;
     text-align: center;
     color: #0e0e10;
+    &:hover {
+      background: #16b13f;
+    }
   }
 
   &__image {

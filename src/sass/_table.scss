@@ -6,6 +6,7 @@
   padding: 30px;
   background: #fff;
   width: 100%;
+  min-height: 800px;
 }
 
 .table-body {
@@ -61,10 +62,16 @@
   flex-wrap: wrap;
   align-items: center;
   &__update {
+    border: 1px solid #0e0e10;
     border-radius: 10px;
-    border: 1px solid #9e9e9e;
-    width: 140px;
-    height: 56px;
+    padding: 16px 24px;
+    width: 147px;
+    height: 53px;
+    font-family: Gotham Pro;
+    font-weight: 700;
+    &:hover {
+      background-color: #dbdce6;
+    }
 
   }
 

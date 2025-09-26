@@ -1,17 +1,21 @@
-## Project Setup
+## Summary
 
-```sh
-npm install
-```
+Был добавлен компонент ( elements ):
 
-### Compile and Hot-Reload for Development
+![img.png](img.png)
 
-```sh
-npm run dev
-```
+![img_1.png](img_1.png)
 
-### Compile and Minify for Production
+`Из апдейтов бы сделал InstitutionTable.vue зависимым от пропсов таких как: апи и поля, что делается довольно незамысловато, но последние 3 для у меня лихорадка. Внезапно.
+`
 
-```sh
-npm run build
-```
+`Время на тестовое и так превысило несколько дней из-за перехода с React, поэтому ui-kit оже в апдейтах
+`
+
+Ручками потыкал другие браузеры, проблем не было. 
+
+## Адаптив
+![img_2.png](img_2.png)
+![img_3.png](img_3.png)
+![img_4.png](img_4.png)
+

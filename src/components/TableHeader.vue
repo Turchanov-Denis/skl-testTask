@@ -2,9 +2,9 @@
   <div class="table-search">
     <div class="table-search__title">Таблица учреждений</div>
     <div class="table-search__container">
-      <Input :onChange="onSearchChange" :image-path="'/inputIcon.png'"/>
+      <Input :onChange="onSearchChange" :imagePath="'inputIcon.png'"/>
       <div class="table-search__container">
-        <DownloadButton @click="downloadData" :image-path="'/buttonIcon.png'"/>
+        <DownloadButton @click="downloadData" :imagePath="'buttonIcon.png'"/>
         <button @click="onUpdate" class="table-search__update">Обновить</button>
       </div>
     </div>
