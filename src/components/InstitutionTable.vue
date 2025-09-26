@@ -5,7 +5,7 @@ import TableBody from './TableBody.vue';
 import SelectComponent from '@/components/SelectComponent.vue';
 import DateRangeInput from '@/components/DateRangeInput.vue';
 import axios from 'axios';
-
+const loading = ref(true);
 const tableData = ref([]);
 const searchData = ref("");
 const selectedType = ref("");
@@ -86,6 +86,7 @@ async function getData() {
     for (const item of tableData.value) {
       downloadId.value.set(item.edu_org.el.uuid, false)
     }
+    loading.value = false;
   } catch (e) {
     console.log(e);
   }
@@ -121,7 +122,7 @@ getData();
         </div>
       </div>
 
-      <TableBody :addAllDownloadId="addAllDownloadId" :addDownloadId="addDownloadId" :tableData="filteredData" :downloadId="downloadId"/>
+      <TableBody :loading="loading" :addAllDownloadId="addAllDownloadId" :addDownloadId="addDownloadId" :tableData="filteredData" :downloadId="downloadId"/>
     </div>
   </div>
 </template>

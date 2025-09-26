@@ -2,8 +2,8 @@
   <div class="table-search">
     <div class="table-search__title">Таблица учреждений</div>
     <div class="table-search__container">
-      <Input  :onChange="onSearchChange" :image-path="'public/inputIcon.png'"/>
-      <DownloadButton :image-path="'public/buttonIcon.png'"/>
+      <Input  :onChange="onSearchChange" :image-path="'/inputIcon.png'"/>
+      <DownloadButton :image-path="'/buttonIcon.png'"/>
     </div>
   </div>
 

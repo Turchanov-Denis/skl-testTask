@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
+import {ref, computed} from 'vue';
 
 const props = defineProps({
   tableData: {
@@ -21,41 +21,48 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  loading: {
+    type: Boolean,
+  }
 });
 
 const currentPage = ref(1);
 const perPage = ref(8);
-const sortKey = ref(''); // Track the column to sort by
-const sortOrder = ref(1); // 1 for ascending (arrowUp), -1 for descending (arrowDown)
+const sortKey = ref(''); // Column key
+const sortOrder = ref(1); // 1 = ascending, -1 = descending
 
-// Computed property to sort tableData
 const sortedTableData = computed(() => {
-  if (!sortKey.value) return props.tableData; // No sorting if no key is selected
+  if (!sortKey.value) return props.tableData;
 
   return [...props.tableData].sort((a, b) => {
-    let aValue, bValue;
+    let aValue = '';
+    let bValue = '';
 
-    if (sortKey.value === 'region') {
-      aValue = a.edu_org.region?.name || '';
-      bValue = b.edu_org.region?.name || '';
-    } else if (sortKey.value === 'short_name') {
-      aValue = a.edu_org.short_name || '';
-      bValue = b.edu_org.short_name || '';
-    } else if (sortKey.value === 'post_address') {
-      aValue = a.edu_org.contact_info?.post_address || '';
-      bValue = b.edu_org.contact_info?.post_address || '';
-    } else {
-      return 0;
+    switch (sortKey.value) {
+      case 'region':
+        aValue = a.edu_org.region?.name || '';
+        bValue = b.edu_org.region?.name || '';
+        break;
+      case 'short_name':
+        aValue = a.edu_org.short_name || '';
+        bValue = b.edu_org.short_name || '';
+        break;
+      case 'post_address':
+        aValue = a.edu_org.contact_info?.post_address || '';
+        bValue = b.edu_org.contact_info?.post_address || '';
+        break;
+      case 'education_level':
+        aValue = 'Среднее Высшее Специальное Проф Бакалавр';
+        bValue = 'Среднее Высшее Специальное Проф Бакалавр';
+        break;
     }
 
     return aValue.localeCompare(bValue) * sortOrder.value;
   });
 });
 
-// Compute total pages based on sorted data
 const totalPages = computed(() => Math.ceil(sortedTableData.value.length / perPage.value));
 
-// Compute paginated data from sorted data
 const paginatedData = computed(() => {
   const start = (currentPage.value - 1) * perPage.value;
   const end = start + perPage.value;
@@ -67,21 +74,14 @@ const goToPage = (page) => {
   currentPage.value = page;
 };
 
-// Toggle sorting when clicking a column header
 const toggleSort = (key) => {
   if (sortKey.value === key) {
-    sortOrder.value *= -1; // Toggle between ascending and descending
+    sortOrder.value *= -1;
   } else {
     sortKey.value = key;
-    sortOrder.value = 1; // Default to ascending (arrowUp)
+    sortOrder.value = 1;
   }
-  currentPage.value = 1; // Reset to first page on sort
-};
-
-// Get the sort icon based on sortKey and sortOrder
-const getSortIcon = (key) => {
-  if (sortKey.value !== key) return '/arrowDown.png'; // Default icon
-  return sortOrder.value === 1 ? '/arrowUp.png' : '/arrowDown.png';
+  currentPage.value = 1;
 };
 </script>
 
@@ -92,55 +92,61 @@ const getSortIcon = (key) => {
         <thead class="table-body__head">
         <tr>
           <th class="table-body__cell table__cell--header">
-            <input @change="addAllDownloadId" type="checkbox">
-            <span @click="toggleSort('region')" style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-                Регионы
-                <img :src="getSortIcon('region')" alt="Sort" style="width: 16px; height: 16px;" />
-              </span>
+            <input type="checkbox" @change="props.addAllDownloadId"/>
           </th>
-          <th class="table-body__cell table__cell--header" @click="toggleSort('short_name')" style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+          <th class="table-body__cell table__cell--header" @click="toggleSort('region')" style="cursor:pointer;">
+            Регионы
+            <img v-if="sortKey === 'region'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+                 class="sort-icon"/>
+          </th>
+          <th class="table-body__cell table__cell--header" @click="toggleSort('short_name')" style="cursor:pointer;">
             Название
-            <img :src="getSortIcon('short_name')" alt="Sort" style="width: 16px; height: 16px;" />
+            <img v-if="sortKey === 'short_name'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+                 class="sort-icon"/>
           </th>
-          <th class="table-body__cell table__cell--header" @click="toggleSort('post_address')" style="cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+          <th class="table-body__cell table__cell--header" @click="toggleSort('post_address')" style="cursor:pointer;">
             Адрес
-            <img :src="getSortIcon('post_address')" alt="Sort" style="width: 16px; height: 16px;" />
+            <img v-if="sortKey === 'post_address'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+                 class="sort-icon"/>
           </th>
-          <th class="table-body__cell table__cell--header">
+          <th class="table-body__cell table__cell--header" @click="toggleSort('education_level')"
+              style="cursor:pointer;">
             Уровень образования
+            <img v-if="sortKey === 'education_level'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+                 class="sort-icon"/>
           </th>
         </tr>
         </thead>
+
         <tbody class="table-body__body">
-        <tr v-for="item in paginatedData" :key="item.id" class="table-body__row">
+
+        <tr v-if="!loading && paginatedData.length === 0">
+          <td class="table-body__cell" colspan="5" style="text-align: center; padding: 16px;">
+            Нет записей
+          </td>
+        </tr>
+        <tr v-else v-for="item in paginatedData" :key="item.id" class="table-body__row">
           <td class="table-body__cell">
             <input
-                :checked="props.downloadId.get(item.edu_org.uuid)"
-                @change="props.addDownloadId"
-                :id="item.edu_org.uuid"
                 type="checkbox"
+                :checked="props.downloadId.get(item.edu_org.uuid)"
+                :id="item.edu_org.uuid"
+                @change="props.addDownloadId"
             />
-            {{ item.edu_org.region.name }}
           </td>
-          <td class="table-body__cell">
-            {{ item.edu_org.short_name || 'None' }}
-          </td>
-          <td class="table-body__cell">
-            {{ item.edu_org.contact_info.post_address }}
-          </td>
-          <td class="table-body__cell">
-            {{ 'Среднее Высшее Специальное Проф Бакалавр' }}
-          </td>
+          <td class="table-body__cell">{{ item.edu_org.region.name }}</td>
+          <td class="table-body__cell">{{ item.edu_org.short_name || 'None' }}</td>
+          <td class="table-body__cell">{{ item.edu_org.contact_info.post_address }}</td>
+          <td class="table-body__cell">Среднее Высшее Специальное Проф Бакалавр</td>
         </tr>
         </tbody>
       </table>
     </div>
 
+    <!-- Pagination -->
     <div class="pagination">
       <div>
-        <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">
-          ‹
-        </button>
+        <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">‹</button>
         <button
             v-for="page in totalPages"
             :key="page"
@@ -149,12 +155,7 @@ const getSortIcon = (key) => {
         >
           {{ page }}
         </button>
-        <button
-            @click="goToPage(currentPage + 1)"
-            :disabled="currentPage === totalPages"
-        >
-          ›
-        </button>
+        <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages">›</button>
       </div>
       <div>
         <select v-model="perPage" @change="goToPage(1)">
@@ -173,27 +174,21 @@ const getSortIcon = (key) => {
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
+.sort-icon {
+  width: 12px;
+  height: 12px;
+  margin-left: 4px;
+}
+
 .pagination {
-  height: 36px;
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
   margin-top: 12px;
-
-  button {
-    padding: 5px;
-  }
 }
 
 button.active {
   font-weight: bold;
-}
-
-.table-body__cell span {
-  display: inline-flex;
-  align-items: center;
 }
 </style>

@@ -5,9 +5,9 @@
 <template>
   <header class="header">
     <div class="container">
-      <img class="header__image" src="../../public/companyIcon.png" alt="">
+      <img class="header__image" src="/companyIcon.png" alt="">
       <div class="contact">
-        <img class="contact__image" src="../../public/logo.png" alt="">
+        <img class="contact__image" src="/logo.png" alt="">
         <div class="contact__text">+7 962 253 20 37</div>
         <div class="contact__text">sales@skillline.ru</div>
         <div class="contact__text">skillline.ru</div>
