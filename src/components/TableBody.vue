@@ -52,8 +52,8 @@ const sortedTableData = computed(() => {
         bValue = b.edu_org.contact_info?.post_address || '';
         break;
       case 'education_level':
-        aValue = 'Среднее Высшее Специальное Проф Бакалавр';
-        bValue = 'Среднее Высшее Специальное Проф Бакалавр';
+        aValue = a?.supplements?.[0]?.educational_programs?.[0]?.edu_level?.name || '';
+        bValue = b?.supplements?.[0]?.educational_programs?.[0]?.edu_level?.name || '';
         break;
     }
 
@@ -96,23 +96,23 @@ const toggleSort = (key) => {
           </th>
           <th class="table-body__cell table__cell--header" @click="toggleSort('region')" style="cursor:pointer;">
             Регионы
-            <img v-if="sortKey === 'region'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+            <img :src="sortOrder === 1 && sortKey === 'region' ? 'public/arrowUp.png' : 'public/arrowDown.png'"
                  class="sort-icon"/>
           </th>
           <th class="table-body__cell table__cell--header" @click="toggleSort('short_name')" style="cursor:pointer;">
             Название
-            <img v-if="sortKey === 'short_name'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+            <img :src="sortOrder === 1 && sortKey === 'short_name'? 'public/arrowUp.png' : 'public/arrowDown.png'"
                  class="sort-icon"/>
           </th>
           <th class="table-body__cell table__cell--header" @click="toggleSort('post_address')" style="cursor:pointer;">
             Адрес
-            <img v-if="sortKey === 'post_address'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+            <img :src="sortOrder === 1 && sortKey === 'post_address'? 'public/arrowUp.png' : 'public/arrowDown.png'"
                  class="sort-icon"/>
           </th>
           <th class="table-body__cell table__cell--header" @click="toggleSort('education_level')"
               style="cursor:pointer;">
             Уровень образования
-            <img v-if="sortKey === 'education_level'" :src="sortOrder === 1 ? '/arrowUp.png' : '/arrowDown.png'"
+            <img :src="sortOrder === 1 && sortKey === 'education_level'? 'public/arrowUp.png' : 'public/arrowDown.png'"
                  class="sort-icon"/>
           </th>
         </tr>
@@ -134,7 +134,7 @@ const toggleSort = (key) => {
             />
           </td>
           <td class="table-body__cell">{{ item.edu_org.region.name }}</td>
-          <td class="table-body__cell">{{ item.edu_org.short_name || 'None' }}</td>
+          <td class="table-body__cell">{{ item.edu_org.short_name || item.edu_org.full_name }}</td>
           <td class="table-body__cell">{{ item.edu_org.contact_info.post_address }}</td>
           <td class="table-body__cell">{{ item?.supplements?.[0]?.educational_programs?.[0]?.edu_level?.name }}</td>
         </tr>
@@ -159,7 +159,6 @@ const toggleSort = (key) => {
         </button>
       </div>
       <div>
-
         <span>
           {{ (currentPage - 1) * perPage + 1 }} -
           {{ Math.min(currentPage * perPage, sortedTableData.length) }}
@@ -193,12 +192,12 @@ select {
   margin-left: 5px;
   border-radius: 8px;
   border: 1px solid #d3d3de;
-  appearance: none; /* убираем стандартную стрелку (Chrome/Safari) */
-  -webkit-appearance: none; /* Safari */
-  -moz-appearance: none; /* Firefox */
-  padding-right: 32px; /* место под стрелку */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 32px;
   background: url("/ArrSelect.png") no-repeat right 10px center;
-  background-size: 16px; /* размер твоей стрелки */
+  background-size: 16px;
 }
 
 option {
@@ -223,7 +222,6 @@ option {
 
 button.active {
   background: #f0f0f7;
-
 }
 
 .page-arrow-left {
@@ -252,6 +250,5 @@ button.active {
   font-size: 12px;
   text-align: center;
   color: #0e0e10;
-
 }
 </style>
