@@ -5,6 +5,7 @@ import TableBody from './TableBody.vue';
 import SelectComponent from '@/components/SelectComponent.vue';
 import DateRangeInput from '@/components/DateRangeInput.vue';
 import axios from 'axios';
+
 const loading = ref(true);
 const tableData = ref([]);
 const searchData = ref("");
@@ -41,7 +42,10 @@ const addAllDownloadId = () => {
   }
   console.log('Текущий Map:', Array.from(downloadId.value.entries()));
 };
-
+const downloadData = () => {
+  console.log(Array.from(downloadId.value.entries()).filter(([key, value]) => value === true)
+      .map(([key]) => key));
+}
 const statusOptions = computed(() => {
   const statuses = tableData.value.map(el => el.status?.name).filter(Boolean);
   return [...new Set(statuses)];
@@ -84,9 +88,10 @@ async function getData() {
     const response = await axios.get("https://schooldb.skillline.ru/api/schools");
     tableData.value = response.data.data.list;
     for (const item of tableData.value) {
-      downloadId.value.set(item.edu_org.el.uuid, false)
+      downloadId.value.set(item.edu_org.uuid, false)
     }
     loading.value = false;
+    console.log(tableData.value)
   } catch (e) {
     console.log(e);
   }
@@ -98,7 +103,8 @@ getData();
 <template>
   <div class="container">
     <div class="table">
-      <TableHeader :onSearchChange="(val) => searchData = val"/>
+      <TableHeader :onUpdate="()=>{loading = true; getData();}" :downloadData="downloadData"
+                   :onSearchChange="(val) => searchData = val"/>
 
       <div class="table-filter">
         <div class="table-filter__item">
@@ -122,7 +128,8 @@ getData();
         </div>
       </div>
 
-      <TableBody :loading="loading" :addAllDownloadId="addAllDownloadId" :addDownloadId="addDownloadId" :tableData="filteredData" :downloadId="downloadId"/>
+      <TableBody :loading="loading" :addAllDownloadId="addAllDownloadId" :addDownloadId="addDownloadId"
+                 :tableData="filteredData" :downloadId="downloadId"/>
     </div>
   </div>
 </template>

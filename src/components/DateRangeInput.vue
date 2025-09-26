@@ -6,8 +6,7 @@
         :value="formattedValue"
         @focus="toggleCalendar"
     />
-    <span class="icon" @click="toggleCalendar">📅</span>
-
+    <img class="icon" src="/calendarIcon.png" @click="toggleCalendar">
     <div v-if="isOpen" class="popup">
       <CalendarPicker
           @cancel="closeCalendar"

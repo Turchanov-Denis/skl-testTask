@@ -1,14 +1,12 @@
 <template>
   <div class="download-button-container">
-    <button class="download-button-container__button" @click="downloadData">Скачать</button>
+    <button class="download-button-container__button" >Скачать</button>
     <img class="download-button-container__image" :src="imagePath" alt="">
   </div>
 </template>
 
 <script setup>
-const downloadData = () => {
-  console.log('Данные скачаны');
-};
+
 const props = defineProps({
   imagePath: {
     type: String,

@@ -2,8 +2,11 @@
   <div class="table-search">
     <div class="table-search__title">Таблица учреждений</div>
     <div class="table-search__container">
-      <Input  :onChange="onSearchChange" :image-path="'/inputIcon.png'"/>
-      <DownloadButton :image-path="'/buttonIcon.png'"/>
+      <Input :onChange="onSearchChange" :image-path="'/inputIcon.png'"/>
+      <div class="table-search__container">
+        <DownloadButton @click="downloadData" :image-path="'/buttonIcon.png'"/>
+        <button @click="onUpdate" class="table-search__update">Обновить</button>
+      </div>
     </div>
   </div>
 
@@ -17,6 +20,8 @@ const props = defineProps({
   searchData: {
     type: String
   },
-  onSearchChange: { type: Function, required: true }
+  onSearchChange: {type: Function, required: true},
+  downloadData: {type: Function, required: true},
+  onUpdate: {type: Function, required: true},
 })
 </script>

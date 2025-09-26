@@ -92,7 +92,7 @@ const toggleSort = (key) => {
         <thead class="table-body__head">
         <tr>
           <th class="table-body__cell table__cell--header">
-            <input type="checkbox" @change="props.addAllDownloadId"/>
+            <input  type="checkbox" class="table-body__checkbox" @change="props.addAllDownloadId"/>
           </th>
           <th class="table-body__cell table__cell--header" @click="toggleSort('region')" style="cursor:pointer;">
             Регионы
@@ -117,9 +117,7 @@ const toggleSort = (key) => {
           </th>
         </tr>
         </thead>
-
         <tbody class="table-body__body">
-
         <tr v-if="!loading && paginatedData.length === 0">
           <td class="table-body__cell" colspan="5" style="text-align: center; padding: 16px;">
             Нет записей
@@ -129,6 +127,7 @@ const toggleSort = (key) => {
           <td class="table-body__cell">
             <input
                 type="checkbox"
+                class="table-body__checkbox"
                 :checked="props.downloadId.get(item.edu_org.uuid)"
                 :id="item.edu_org.uuid"
                 @change="props.addDownloadId"

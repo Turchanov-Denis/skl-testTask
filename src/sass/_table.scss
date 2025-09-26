@@ -4,18 +4,31 @@
   margin: 80px 0 30px 0;
   border-radius: 16px;
   padding: 30px;
-  width: 1632px;
   background: #fff;
+  width: 100%;
 }
 
 .table-body {
   width: 100%;
+
   th {
     height: 56px;
     padding: 10px;
     text-align: left;
     vertical-align: middle;
   }
+
+  &__checkbox {
+    padding: 100px;
+    accent-color: #d1d1dc;
+
+    &:checked {
+      accent-color: #1b1b1f;
+
+    }
+
+  }
+
   &__head {
     background: #dbdbea;
   }
@@ -29,6 +42,7 @@
     padding: 10px;
     text-align: left;
     vertical-align: middle;
+
     &--header {
       font-weight: bold;
     }
@@ -45,22 +59,32 @@
   min-height: 85px;
   width: 100%;
   flex-wrap: wrap;
+  align-items: center;
+  &__update {
+    border-radius: 10px;
+    border: 1px solid #9e9e9e;
+    width: 140px;
+    height: 56px;
+
+  }
 
   &__title {
     font-family: Gotham Pro, serif;
     font-weight: 700;
     font-size: 32px;
     color: #111827;
-    margin-top: 10px;
+    padding: 20px 0;
   }
-  &__container{
-    width: 470px;
+
+  &__container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    gap: 20px;
   }
 }
+
 .table-filter {
   display: flex;
   min-height: 85px;
@@ -68,10 +92,11 @@
   gap: 20px;
   flex-wrap: wrap;
   align-items: center;
-  &__item{
-    max-width: 500px;
-    min-width: 300px;
-    flex: 1;
+  justify-content: center;
+  padding: 10px 0;
+
+  &__item {
+    flex: 1 1 400px;
   }
 }
 
