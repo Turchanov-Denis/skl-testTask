@@ -47,7 +47,7 @@ const downloadData = () => {
       .map(([key]) => key));
 }
 const statusOptions = computed(() => {
-  const statuses = tableData.value.map(el => el.status?.name).filter(Boolean);
+  const statuses = tableData.value.map(el => el.supplements[0].status?.name).filter(Boolean);
   return [...new Set(statuses)];
 });
 
@@ -115,7 +115,7 @@ getData();
               :options="typeOptions"
               :selected="selectedType"
               :onSelectChange="(val) => selectedType = val"
-              placeholder="Выберите тип"
+              placeholder="Все виды"
           />
         </div>
         <div class="table-filter__item">
@@ -123,7 +123,7 @@ getData();
               :options="statusOptions"
               :selected="selectedStatus"
               :onSelectChange="(val) => selectedStatus = val"
-              placeholder="Выберите статус"
+              placeholder="Все статусы"
           />
         </div>
       </div>

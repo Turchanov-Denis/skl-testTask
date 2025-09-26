@@ -26,13 +26,12 @@ const props = defineProps({
     border-radius: 10px;
     width: 147px;
     height: 56px;
-    background: #33d35e;
-    font-family: Gotham Pro, serif;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 16px;
-    line-height: 130%;
-    text-align: center;
+    text-align: right;
+    padding-right: 20px;
     color: #0e0e10;
+    background: #33d35e;
     &:hover {
       background: #16b13f;
     }
@@ -42,7 +41,7 @@ const props = defineProps({
     width: 23px;
     height: 23px;
     position: absolute;
-    left: 10px;
+    left: 28px;
 
   }
 }

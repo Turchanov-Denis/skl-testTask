@@ -24,5 +24,11 @@ const props = defineProps({
   border-radius: 10px;
   height: 56px;
   padding-left: 15px;
+  appearance: none;          /* убираем стандартную стрелку (Chrome, Safari) */
+  -webkit-appearance: none;  /* для Safari */
+  -moz-appearance: none;     /* для Firefox */
+  background: url('/ArrSelect.png') no-repeat right 12px center;
+  background-size: 16px;
+  padding-right: 32px;       /* чтобы текст не налезал на иконку */
 }
 </style>

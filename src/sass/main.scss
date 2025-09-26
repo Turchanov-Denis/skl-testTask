@@ -3,14 +3,36 @@
 @use "table";
 
 @font-face {
-  font-family: 'Gotham Pro';
-  src: url('../assets/fonts/gothampro_bold.ttf') format('truetype');
-  font-weight: 700;
+  font-family: "GothamPro";
+  src: url("public/fonts/gothampro.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: "GothamPro";
+  src: url("public/fonts/gothampro_bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "GothamPro";
+  src: url("public/fonts/gothampro_black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+:root {
+  --font-family: "GothamPro", Arial, sans-serif;
+}
+
+html, body {
+  font-family: var(--font-family);
+}
 .wrapper{
   width: 100%;
-  background: #dddee8;
+  background: #f1f4fd;
 
 }
 // move to other file container.scss

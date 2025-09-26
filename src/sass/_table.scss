@@ -3,7 +3,7 @@
 .table {
   margin: 80px 0 30px 0;
   border-radius: 16px;
-  padding: 30px;
+  padding: 0 24px;
   background: #fff;
   width: 100%;
   min-height: 800px;
@@ -17,6 +17,9 @@
     padding: 10px;
     text-align: left;
     vertical-align: middle;
+    font-weight: 700;
+    font-size: 16px;
+    background: #f0f0f7;
   }
 
   &__checkbox {
@@ -43,6 +46,9 @@
     padding: 10px;
     text-align: left;
     vertical-align: middle;
+    font-weight: 400;
+    font-size: 14px;
+    color: #0e0e10;
 
     &--header {
       font-weight: bold;
@@ -61,14 +67,15 @@
   width: 100%;
   flex-wrap: wrap;
   align-items: center;
+
   &__update {
-    border: 1px solid #0e0e10;
+    border: 1px solid #d1d1dc;
     border-radius: 10px;
     padding: 16px 24px;
     width: 147px;
-    height: 53px;
-    font-family: Gotham Pro;
+    height: 56px;
     font-weight: 700;
+
     &:hover {
       background-color: #dbdce6;
     }
@@ -76,11 +83,10 @@
   }
 
   &__title {
-    font-family: Gotham Pro, serif;
     font-weight: 700;
     font-size: 32px;
     color: #111827;
-    padding: 20px 0;
+    padding: 17px 0;
   }
 
   &__container {

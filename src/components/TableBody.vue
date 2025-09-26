@@ -27,7 +27,7 @@ const props = defineProps({
 });
 
 const currentPage = ref(1);
-const perPage = ref(8);
+const perPage = ref(10);
 const sortKey = ref(''); // Column key
 const sortOrder = ref(1); // 1 = ascending, -1 = descending
 
@@ -92,7 +92,7 @@ const toggleSort = (key) => {
         <thead class="table-body__head">
         <tr>
           <th class="table-body__cell table__cell--header">
-            <input  type="checkbox" class="table-body__checkbox" @change="props.addAllDownloadId"/>
+            <input type="checkbox" class="table-body__checkbox" @change="props.addAllDownloadId"/>
           </th>
           <th class="table-body__cell table__cell--header" @click="toggleSort('region')" style="cursor:pointer;">
             Регионы
@@ -136,7 +136,7 @@ const toggleSort = (key) => {
           <td class="table-body__cell">{{ item.edu_org.region.name }}</td>
           <td class="table-body__cell">{{ item.edu_org.short_name || 'None' }}</td>
           <td class="table-body__cell">{{ item.edu_org.contact_info.post_address }}</td>
-          <td class="table-body__cell">Среднее Высшее Специальное Проф Бакалавр</td>
+          <td class="table-body__cell">{{ item?.supplements?.[0]?.educational_programs?.[0]?.edu_level?.name }}</td>
         </tr>
         </tbody>
       </table>
@@ -144,9 +144,10 @@ const toggleSort = (key) => {
 
     <!-- Pagination -->
     <div class="pagination">
-      <div>
-        <button @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">‹</button>
+      <div style="display:flex; align-items:center;">
+        <button class="page-arrow-left" @click="goToPage(currentPage - 1)" :disabled="currentPage === 1">‹</button>
         <button
+            class="page-button"
             v-for="page in totalPages"
             :key="page"
             @click="goToPage(page)"
@@ -154,26 +155,59 @@ const toggleSort = (key) => {
         >
           {{ page }}
         </button>
-        <button @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages">›</button>
+        <button class="page-arrow-right" @click="goToPage(currentPage + 1)" :disabled="currentPage === totalPages">›
+        </button>
       </div>
       <div>
+
+        <span>
+          {{ (currentPage - 1) * perPage + 1 }} -
+          {{ Math.min(currentPage * perPage, sortedTableData.length) }}
+          из {{ sortedTableData.length }} записей
+        </span>
+        <span style="margin-left: 10px">Показывать</span>
         <select v-model="perPage" @change="goToPage(1)">
+          <option disabled :value="perPage">
+            {{ perPage }}
+          </option>
           <option :value="5">5</option>
           <option :value="10">10</option>
           <option :value="20">20</option>
           <option :value="50">50</option>
         </select>
-        <span>
-          {{ (currentPage - 1) * perPage + 1 }} -
-          {{ Math.min(currentPage * perPage, sortedTableData.length) }}
-          из {{ sortedTableData.length }}
-        </span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+span {
+  font-weight: 400;
+  font-size: 12px;
+  color: #687588;
+}
+
+select {
+  height: 36px;
+  width: 73px;
+  margin-left: 5px;
+  border-radius: 8px;
+  border: 1px solid #d3d3de;
+  appearance: none; /* убираем стандартную стрелку (Chrome/Safari) */
+  -webkit-appearance: none; /* Safari */
+  -moz-appearance: none; /* Firefox */
+  padding-right: 32px; /* место под стрелку */
+  background: url("/ArrSelect.png") no-repeat right 10px center;
+  background-size: 16px; /* размер твоей стрелки */
+}
+
+option {
+  font-weight: 400;
+  font-size: 12px;
+  color: #0e0e10;
+  text-align: center;
+}
+
 .sort-icon {
   width: 12px;
   height: 12px;
@@ -184,10 +218,40 @@ const toggleSort = (key) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 12px;
+  margin: 12px 0;
 }
 
 button.active {
-  font-weight: bold;
+  background: #f0f0f7;
+
+}
+
+.page-arrow-left {
+  border: 1px solid #d3d3de;
+  border-radius: 8px;
+  width: 44px;
+  margin-right: 20px;
+  height: 36px;
+  font-size: 25px;
+}
+
+.page-arrow-right {
+  border: 1px solid #d3d3de;
+  border-radius: 8px;
+  width: 44px;
+  margin-left: 20px;
+  height: 36px;
+  font-size: 25px;
+}
+
+.page-button {
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: center;
+  color: #0e0e10;
+
 }
 </style>
