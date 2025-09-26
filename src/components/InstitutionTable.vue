@@ -108,7 +108,7 @@ getData();
 
       <div class="table-filter">
         <div class="table-filter__item">
-          <DateRangeInput :onSetDates="(val)=> selectedDate=val"/>
+          <DateRangeInput :onSetDates="(val)=> selectedDate=val" :onUpdate="()=>{loading = true; getData();}" :downloadData="downloadData"/>
         </div>
         <div class="table-filter__item">
           <SelectComponent

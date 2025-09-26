@@ -1,5 +1,21 @@
 ## Summary
 
+## Зависимости Vue компонентов
+
+В проекте используются следующие зависимости между Vue компонентами:
+
+- **InstitutionTable.vue**
+    - TableHeader.vue
+    - TableBody.vue
+    - SelectComponent.vue
+    - DateRangeInput.vue
+- **TableHeader.vue**
+    - DownloadButton.vue
+    - Input.vue
+- **DateRangeInput.vue**
+    - CalendarPicker.vue
+
+
 Был добавлен компонент ( elements ):
 
 ![img.png](img.png)
@@ -18,4 +34,6 @@
 ![img_2.png](img_2.png)
 ![img_3.png](img_3.png)
 ![img_4.png](img_4.png)
+
+
 

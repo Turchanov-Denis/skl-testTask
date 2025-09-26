@@ -22,6 +22,7 @@ import CalendarPicker from "./CalendarPicker.vue"
 
 const props = defineProps({
   onSetDates: Function,
+  onUpdate: Function,
 })
 const isOpen = ref(false)
 const startDate = ref(null)
@@ -46,6 +47,7 @@ function toggleCalendar() {
 
 function closeCalendar() {
   isOpen.value = false
+  props.onUpdate()
 }
 
 function setDates({start, end}) {
