@@ -18,9 +18,9 @@
 
 Был добавлен компонент ( elements ):
 
-![img.png](img.png)
+![img.png](public/img.png)
 
-![img_1.png](img_1.png)
+![img_1.png](public/img_1.png)
 
 `Из апдейтов бы сделал InstitutionTable.vue зависимым от пропсов таких как: апи и поля, что делается довольно незамысловато, но последние 3 дня у меня лихорадка. Внезапно.
 `
@@ -31,9 +31,9 @@
 Ручками потыкал другие браузеры, проблем не было. 
 
 ## Адаптив
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
+![img_2.png](public/img_2.png)
+![img_3.png](public/img_3.png)
+![img_4.png](public/img_4.png)
 
 
 
