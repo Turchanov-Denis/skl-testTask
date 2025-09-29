@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+coverage
+*.local
+
+/cypress/videos/
+/cypress/screenshots/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+*.tsbuildinfo
+
+
+# ignore all idea settings
+.idea/*
+*.iws
+*.iml
+*.ipr
+
+# gradle project minimum
+!.idea/gradle.xml
+!.idea/misc.xml
+
+# enable plugin dependencies
+!.idea/externalDependencies.xml
+
+# enable codestyle, with save actions
+!.idea/codeStyles
+!.idea/saveactions_settting.xml
+
+# enable inspection rules
+!.idea/inspectionProfiles
+
+# enable annotation processor for lombok plugin
+!.idea/compiler.xml
+
+# enable checkstyle ide
+!.idea/checkstyle-idea.xml
